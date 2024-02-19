@@ -6,9 +6,10 @@ export interface InputProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export interface User {
+export interface UserProps {
     id: number;
     login: string;
     avatar_url: string;
     html_url: string;
 }
+

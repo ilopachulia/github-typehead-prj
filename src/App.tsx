@@ -1,11 +1,12 @@
-import SearchField from "./features/SearchField.tsx";
+import SearchBox from "./features/SearchBox.tsx";
+import AppLayout from "./ui/AppLayout.tsx";
 
 function App(){
 
     return (
-        <>
-            <SearchField/>
-        </>
+        <AppLayout>
+            <SearchBox/>
+        </AppLayout>
     )
 }
 
