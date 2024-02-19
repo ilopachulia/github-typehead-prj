@@ -7,7 +7,7 @@ export interface InputProps {
 }
 
 export interface UserProps {
-    id: number;
+    id?: number;
     login: string;
     avatar_url: string;
     html_url: string;
