@@ -1,5 +1,5 @@
 import Input from "../ui/Input.tsx";
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, useRef, useState} from "react";
 import {fetchUsers} from "../api/usersApi.ts";
 import {UserProps} from "../interfaces.ts";
 import User from "./User.tsx";
@@ -8,10 +8,13 @@ function SearchBox() {
     const [search, setSearch] = useState("");
     const [users, setUsers] = useState<UserProps[]>([]);
     const [error, setError] = useState(null);
+    const controllerRef = useRef<AbortController | null>(null);
 
     function onSearchHandler(evt: ChangeEvent<HTMLInputElement>) {
         setSearch(evt.target.value);
-        fetchUsers(search, 1, 10, "login", "asc")
+        if (controllerRef.current) controllerRef.current.abort();
+        controllerRef.current = new AbortController();
+        fetchUsers(search, 1, 10, "login", "asc", controllerRef.current.signal)
             .then(([error, data]) => {
                 if (error) {
                     setError(error.status);
